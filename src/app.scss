@@ -1,0 +1,18 @@
+html {
+  margin: 0;
+  padding: 0;
+  background-color: rgba(230, 230, 230, 0.26);
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+#root {
+  max-width: 900px;
+  width: 100%;
+  margin: 40px auto;
+
+  .MuiDataGrid-root {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: none;
+  }
+}
