@@ -6,19 +6,22 @@ import "./app.scss";
 import Statistics from "./components/Statistics";
 import TemperatureListing from "./components/TemperatureListing";
 import { temperatureRecords } from "./data/temperatureData.ts";
+import TemperatureRecordsTypes from "./types";
+import {
+  getFilters,
+  getTemperatureRecords,
+} from "./selectors/app.selectors.ts";
 
 const App = () => {
   const dispatch = useDispatch();
-  const filters = useSelector((state: any) => state.temperatureRecords.filters);
-  const dataFromRedux = useSelector(
-    (state: any) => state.temperatureRecords?.data
-  );
+  const filters = useSelector(getFilters);
+  const dataFromRedux = useSelector(getTemperatureRecords);
 
   const data = useMemo(() => {
     if (dataFromRedux?.length) {
       if (!!filters.startDate && !!filters?.endDate) {
         return dataFromRedux.filter(
-          (item: any) =>
+          (item: TemperatureRecordsTypes) =>
             filters.startDate <= item.time && item.time <= filters.endDate
         );
       }

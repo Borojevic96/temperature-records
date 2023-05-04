@@ -6,13 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoading, storeData } from "../../reducer/app.ts";
 import { Autocomplete } from "@mui/material";
 import style from "./AddNewTemperatureItemForm.module.scss";
+import { RootState } from "../../store.ts";
 
 const AddNewTemperatureItemForm = () => {
   const dispatch = useDispatch();
   const dataFromRedux = useSelector(
-    (state: any) => state.temperatureRecords?.data
+    (state: RootState) => state.temperatureRecords?.data
   );
-  const initialValues: TemperatureRecordsTypes = {
+  const initialValues = {
     location: "",
     time: moment().format("YYYY-MM-DDTHH:mm"),
     temperature: 0,
@@ -68,8 +69,8 @@ const AddNewTemperatureItemForm = () => {
                 <TextField {...params} label="Location" required />
               )}
               options={allLocations.filter(
-                (obj: any, index: number, self: any) =>
-                  self.findIndex((o: any) => o === obj) === index
+                (obj: string, index: number, self: string[]) =>
+                  self.findIndex((o: string) => o === obj) === index
               )}
               onSelect={handleChange}
             />

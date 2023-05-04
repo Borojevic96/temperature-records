@@ -37,6 +37,7 @@
     "typescript": "^5.0.2",
     "typescript-plugin-css-modules": "^5.0.1",
     "vite": "^4.3.2",
+    "vite-plugin-eslint": "^1.8.1",
     "vitest": "^0.30.1"
   }
 }

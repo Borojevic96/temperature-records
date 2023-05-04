@@ -11,8 +11,11 @@ import {
 import style from "./Statistics.module.scss";
 import { CircularProgress } from "@mui/material";
 import { useSelector } from "react-redux";
+import { getLoading } from "../../selectors/app.selectors.ts";
 
-const Statistics = ({ data }: { data: TemperatureRecordsTypes[] }) => {
+const Statistics: React.FC<{ data: TemperatureRecordsTypes[] }> = ({
+  data,
+}) => {
   const hotThreshold = 25;
   const mostCommonTemperature = getMostCommonTemperature(data);
   const averageTemperature = getAverageTemperature(data);
@@ -22,7 +25,7 @@ const Statistics = ({ data }: { data: TemperatureRecordsTypes[] }) => {
     data,
     averageTemperature
   );
-  const loading = useSelector((state: any) => state.temperatureRecords.loading);
+  const loading = useSelector(getLoading);
 
   const statisticsList = [
     {

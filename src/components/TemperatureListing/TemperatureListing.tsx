@@ -8,10 +8,13 @@ import TemperatureRecordsTypes from "../../types";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilters } from "../../reducer/app.ts";
 import style from "./TemperatureListing.module.scss";
-const TemperatureListing = ({ data }: { data: TemperatureRecordsTypes[] }) => {
+import { getFilters, getLoading } from "../../selectors/app.selectors.ts";
+const TemperatureListing: React.FC<{ data?: TemperatureRecordsTypes[] }> = ({
+  data,
+}) => {
   const dispatch = useDispatch();
-  const loading = useSelector((state: any) => state.temperatureRecords.loading);
-  const filters = useSelector((state: any) => state.temperatureRecords.filters);
+  const loading = useSelector(getLoading);
+  const filters = useSelector(getFilters);
 
   const columns: GridColDef[] = [
     { field: "location", headerName: "Location", sortable: false, flex: 1 },
@@ -27,25 +30,25 @@ const TemperatureListing = ({ data }: { data: TemperatureRecordsTypes[] }) => {
   const rows = useMemo(
     () =>
       data?.length
-        ? [...data]
-            .sort((a: any, b: any) => b.time - a.time)
-            .map(({ location, time, temperature }, index) => ({
-              id: `${time}${index}`,
-              location,
-              time: moment(time).format("DD/MM/YYYY, HH:mm"),
-              temperature: formatCelsiusTemperature(temperature),
-            }))
+        ? [...(data as TemperatureRecordsTypes[])]
+            .sort(
+              (a: TemperatureRecordsTypes, b: TemperatureRecordsTypes) =>
+                Number(b.time) - Number(a.time)
+            )
+            .map(
+              (
+                { location, time, temperature }: TemperatureRecordsTypes,
+                index
+              ) => ({
+                id: `${time}${index}`,
+                location,
+                time: moment(time).format("DD/MM/YYYY, HH:mm"),
+                temperature: formatCelsiusTemperature(temperature),
+              })
+            )
         : [],
     [data]
   );
-
-  if (!data?.length) {
-    return (
-      <h3 className={style["temperature-listing"]}>
-        No data for selected period!
-      </h3>
-    );
-  }
 
   return (
     <>
@@ -81,18 +84,24 @@ const TemperatureListing = ({ data }: { data: TemperatureRecordsTypes[] }) => {
           }}
         />
       </div>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        loading={loading}
-        disableColumnMenu
-        density={"compact"}
-        disableRowSelectionOnClick
-        pageSizeOptions={[5, 10, 25]}
-        initialState={{
-          pagination: { paginationModel: { pageSize: 10 } },
-        }}
-      />
+      {data?.length ? (
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          loading={loading}
+          disableColumnMenu
+          density={"compact"}
+          disableRowSelectionOnClick
+          pageSizeOptions={[5, 10, 25]}
+          initialState={{
+            pagination: { paginationModel: { pageSize: 10 } },
+          }}
+        />
+      ) : (
+        <h3 className={style["temperature-listing"]}>
+          No data for selected period!
+        </h3>
+      )}
     </>
   );
 };

@@ -1,11 +1,16 @@
 import TemperatureRecordsTypes from "../types";
 
-const convertKelvinToCelsiusTemperature = (value: number) => value - 273.15;
-const formatCelsiusTemperature = (value: number) => {
+enum temperatureConstants {
+  KELVIN_CONSTANT = 273.15,
+}
+const convertKelvinToCelsiusTemperature = (value: number): number => {
+  return value - temperatureConstants.KELVIN_CONSTANT;
+};
+const formatCelsiusTemperature = (value: number): string => {
   return `${convertKelvinToCelsiusTemperature(value).toFixed(1)} °C`;
 };
 
-const getAverageTemperature = (data: TemperatureRecordsTypes[]) => {
+const getAverageTemperature = (data: TemperatureRecordsTypes[]): number => {
   const sum = data?.reduce(
     (acc: number, curr: TemperatureRecordsTypes) => acc + curr.temperature,
     0
@@ -13,13 +18,19 @@ const getAverageTemperature = (data: TemperatureRecordsTypes[]) => {
   return sum / data?.length;
 };
 
-const getHotDays = (data: TemperatureRecordsTypes[], hotThreshold: number) => {
+const getHotDays = (
+  data: TemperatureRecordsTypes[],
+  hotThreshold: number
+): number => {
   return data.filter(
     ({ temperature }: TemperatureRecordsTypes) =>
       convertKelvinToCelsiusTemperature(temperature) >= hotThreshold
   ).length;
 };
-const getColdDays = (data: TemperatureRecordsTypes[], hotThreshold: number) => {
+const getColdDays = (
+  data: TemperatureRecordsTypes[],
+  hotThreshold: number
+): number => {
   return data?.filter(
     ({ temperature }: TemperatureRecordsTypes) =>
       convertKelvinToCelsiusTemperature(temperature) < hotThreshold
@@ -29,7 +40,7 @@ const getColdDays = (data: TemperatureRecordsTypes[], hotThreshold: number) => {
 const getNumberOfDaysAboveAverage = (
   data: TemperatureRecordsTypes[],
   averageTemperature: number
-) => {
+): number => {
   return data.filter(
     ({ temperature }: TemperatureRecordsTypes) =>
       convertKelvinToCelsiusTemperature(temperature) >
@@ -37,8 +48,8 @@ const getNumberOfDaysAboveAverage = (
   ).length;
 };
 
-const getMostCommonTemperature = (data: TemperatureRecordsTypes[]) => {
-  const freqTemperatureMap: any = {};
+const getMostCommonTemperature = (data: TemperatureRecordsTypes[]): number => {
+  const freqTemperatureMap: Record<string, number> = {};
 
   data.forEach(({ temperature }: TemperatureRecordsTypes) => {
     freqTemperatureMap[temperature] =
