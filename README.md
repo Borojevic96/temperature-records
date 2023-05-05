@@ -14,7 +14,7 @@ Temperature Records is a web application that allows users to view and manage te
 - Material-UI: A React component library that provides pre-built UI components.
 
 ## Installation
-Clone the repository: `git clone <repository-url>`
+Clone the repository: `git clone https://github.com/Borojevic96/temperature-records.git`
 
 Install dependencies: `npm install`
 ## Usage
