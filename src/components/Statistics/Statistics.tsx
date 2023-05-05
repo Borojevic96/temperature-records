@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { CircularProgress } from "@mui/material";
 import TemperatureRecordsTypes from "../../types";
 import {
   formatCelsiusTemperature,
@@ -8,10 +10,8 @@ import {
   getMostCommonTemperature,
   getNumberOfDaysAboveAverage,
 } from "../../utils/utils.ts";
-import style from "./Statistics.module.scss";
-import { CircularProgress } from "@mui/material";
-import { useSelector } from "react-redux";
 import { getLoading } from "../../selectors/app.selectors.ts";
+import style from "./Statistics.module.scss";
 
 const Statistics: React.FC<{ data: TemperatureRecordsTypes[] }> = ({
   data,
@@ -29,7 +29,7 @@ const Statistics: React.FC<{ data: TemperatureRecordsTypes[] }> = ({
 
   const statisticsList = [
     {
-      label: "Average temperature:",
+      label: "Average temperature: ",
       value: formatCelsiusTemperature(averageTemperature),
     },
     {

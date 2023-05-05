@@ -1,21 +1,21 @@
 import TemperatureRecordsTypes from "../types";
 
-enum temperatureConstants {
+enum TemperatureConstants {
   KELVIN_CONSTANT = 273.15,
 }
-const convertKelvinToCelsiusTemperature = (value: number): number => {
-  return value - temperatureConstants.KELVIN_CONSTANT;
-};
+const convertKelvinToCelsiusTemperature = (value: number): number =>
+  value - TemperatureConstants.KELVIN_CONSTANT;
 const formatCelsiusTemperature = (value: number): string => {
   return `${convertKelvinToCelsiusTemperature(value).toFixed(1)} °C`;
 };
 
 const getAverageTemperature = (data: TemperatureRecordsTypes[]): number => {
-  const sum = data?.reduce(
+  const sum = data.reduce(
     (acc: number, curr: TemperatureRecordsTypes) => acc + curr.temperature,
     0
   );
-  return sum / data?.length;
+
+  return sum / data.length;
 };
 
 const getHotDays = (
@@ -31,7 +31,7 @@ const getColdDays = (
   data: TemperatureRecordsTypes[],
   hotThreshold: number
 ): number => {
-  return data?.filter(
+  return data.filter(
     ({ temperature }: TemperatureRecordsTypes) =>
       convertKelvinToCelsiusTemperature(temperature) < hotThreshold
   ).length;

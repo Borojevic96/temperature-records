@@ -1,10 +1,12 @@
 import { Formik } from "formik";
 import { Button, TextField } from "@material-ui/core";
 import moment from "moment/moment";
-import TemperatureRecordsTypes from "../../types";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading, storeData } from "../../reducer/app.ts";
 import { Autocomplete } from "@mui/material";
+import TemperatureRecordsTypes, {
+  TemperatureRecordsFormValues,
+} from "../../types";
+import { setLoading, storeData } from "../../reducer/app.ts";
 import style from "./AddNewTemperatureItemForm.module.scss";
 import { RootState } from "../../store.ts";
 
@@ -13,7 +15,8 @@ const AddNewTemperatureItemForm = () => {
   const dataFromRedux = useSelector(
     (state: RootState) => state.temperatureRecords?.data
   );
-  const initialValues = {
+
+  const initialValues: TemperatureRecordsFormValues = {
     location: "",
     time: moment().format("YYYY-MM-DDTHH:mm"),
     temperature: 0,
@@ -31,7 +34,7 @@ const AddNewTemperatureItemForm = () => {
     location,
     time,
     temperature,
-  }: TemperatureRecordsTypes) => {
+  }: TemperatureRecordsFormValues) => {
     setLoadingFunction(true);
     await networkDelay(2000).then(() => setLoadingFunction(false));
 

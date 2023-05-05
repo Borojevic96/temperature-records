@@ -1,4 +1,4 @@
-const temperatureRecords = [
+export default [
   { time: 1571176800000, location: "Maribor", temperature: 288 },
   { time: 1571263200000, location: "Maribor", temperature: 286.5 },
   { time: 1571349600000, location: "Maribor", temperature: 287.6 },
@@ -180,5 +180,3 @@ const temperatureRecords = [
   { time: 1573599600000, location: "Celje", temperature: 279.1 },
   { time: 1573686000000, location: "Celje", temperature: 278.9 },
 ];
-
-export { temperatureRecords };

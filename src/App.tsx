@@ -5,7 +5,7 @@ import { storeData } from "./reducer/app.ts";
 import "./app.scss";
 import Statistics from "./components/Statistics";
 import TemperatureListing from "./components/TemperatureListing";
-import { temperatureRecords } from "./data/temperatureData.ts";
+import temperatureRecords from "./data/temperatureData.ts";
 import TemperatureRecordsTypes from "./types";
 import {
   getFilters,

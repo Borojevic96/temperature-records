@@ -5,13 +5,13 @@ interface FilterTypes {
   startDate: number;
   endDate: number;
 }
-interface temperatureRecordsArray {
+interface TemperatureRecordsArray {
   data: TemperatureRecordsTypes[];
   loading: boolean;
   filters: FilterTypes;
 }
 
-const initialState: temperatureRecordsArray = {
+const initialState: TemperatureRecordsArray = {
   data: [],
   loading: false,
   filters: { startDate: 0, endDate: 0 },
@@ -22,22 +22,15 @@ export const temperatureRecordsState = createSlice({
   initialState,
   reducers: {
     storeData: (state, action: PayloadAction<TemperatureRecordsTypes[]>) => {
-      return {
-        ...state,
-        data: [...(state?.data || []), ...action.payload],
-      };
+      action.payload.forEach((item) => {
+        state.data.push(item);
+      });
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
-      return {
-        ...state,
-        loading: action.payload,
-      };
+      state.loading = action.payload;
     },
     setFilters: (state, action: PayloadAction<FilterTypes>) => {
-      return {
-        ...state,
-        filters: action.payload,
-      };
+      state.filters = action.payload;
     },
   },
 });
@@ -45,4 +38,4 @@ export const temperatureRecordsState = createSlice({
 export const { storeData, setLoading, setFilters } =
   temperatureRecordsState.actions;
 
-export default temperatureRecordsState.reducer;
+export default temperatureRecordsState;
