@@ -25,6 +25,4 @@ Open a web browser and navigate to http://localhost:3000 to view the application
 ## Testing
 
 To run the tests, use the following command: `npm run test`
-Deployment
-To deploy the application, use the following command:
 
